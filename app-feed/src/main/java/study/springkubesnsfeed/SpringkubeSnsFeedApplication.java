@@ -1,13 +1,13 @@
-package study.springkubesns;
+package study.springkubesnsfeed;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringkubeSnsApplication {
+public class SpringkubeSnsFeedApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringkubeSnsApplication.class, args);
+        SpringApplication.run(SpringkubeSnsFeedApplication.class, args);
     }
 
 }
