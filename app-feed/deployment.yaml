@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: feed-container
-          image: kai1114/springkube-sns-feed-server:0.0.1
+          image: kai1114/springkube-sns-feed-server:0.0.2
           env:
             - name: PROFILE
               value: dev
