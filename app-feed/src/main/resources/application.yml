@@ -1,0 +1,12 @@
+server:
+  shutdown: graceful
+spring:
+  profiles:
+    active: ${PROFILE}
+  config:
+    import: optional:classpath:env.properties
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST}:3306/sns
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
