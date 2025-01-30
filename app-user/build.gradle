@@ -1,0 +1,23 @@
+plugins {
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+}
+
+jib {
+    from {
+        image = 'openjdk:21'
+    }
+    to {
+        image = "kai1114/springkube-sns-user-server"
+        tags = ['latest', '0.0.1']
+    }
+    container {
+        creationTime = 'USE_CURRENT_TIMESTAMP'
+    }
+}
