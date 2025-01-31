@@ -1,3 +1,4 @@
 rootProject.name = 'springkubesns'
 include 'app-feed'
 include 'app-user'
+include 'app-image'
