@@ -24,6 +24,8 @@ spec:
           env:
             - name: PROFILE
               value: dev
+            - name: USER_SERVICE
+              value: http://user-server.sns.svc.cluster.local:8080
           envFrom:
             - configMapRef:
                 name: mysql-config

@@ -1,5 +1,6 @@
 package study.springkubesnsfeed.feed;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,15 @@ public class SocialFeedController {
     private final SocialFeedService socialFeedService;
 
     @GetMapping
-    public List<SocialFeed> getAllFeeds() {
-        return socialFeedService.getAllFeeds();
+    public List<FeedInfoResponse> getAllFeeds() {
+        List<FeedInfoResponse> responses = new ArrayList<>();
+        List<SocialFeed> feeds = socialFeedService.getAllFeeds();
+        for (SocialFeed feed : feeds) {
+            UserInfoResponse userInfo = socialFeedService.getUserInfo(feed.getUploaderId());
+            FeedInfoResponse feedInfo = new FeedInfoResponse(feed, userInfo.username());
+            responses.add(feedInfo);
+        }
+        return responses;
     }
 
     @GetMapping("/user/{userId}")

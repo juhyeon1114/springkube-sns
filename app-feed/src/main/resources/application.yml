@@ -1,3 +1,6 @@
+sns:
+  user-server: ${USER_SERVICE}
+
 server:
   shutdown: graceful
 spring:
