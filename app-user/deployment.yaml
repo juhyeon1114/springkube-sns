@@ -4,7 +4,7 @@ metadata:
   name: user-server
   namespace: sns
 spec:
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -21,6 +21,7 @@ spec:
       containers:
         - name: user-container
           image: kai1114/springkube-sns-user-server:0.0.1
+          imagePullPolicy: Always
           env:
             - name: PROFILE
               value: dev
