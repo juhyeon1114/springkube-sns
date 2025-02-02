@@ -12,7 +12,7 @@ jib {
     }
     to {
         image = "kai1114/springkube-sns-image-server"
-        tags = ['latest', '0.0.1']
+        tags = ['latest', '0.0.4']
     }
     container {
         creationTime = 'USE_CURRENT_TIMESTAMP'

@@ -1,9 +1,11 @@
-server:
-  port: 8082
 images:
   upload-root: ${IMAGE_PATH}
 spring:
+  config:
+    import: optional:classpath:env.properties
   servlet:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
+  profiles:
+    active: ${PROFILE}
