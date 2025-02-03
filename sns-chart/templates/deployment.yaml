@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.appName}}
+spec:
+  replicas: {{.Values.replicas}}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1 # 한번에 하나씩 업데이트
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: {{.Values.appName}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.appName}}
+    spec:
+      containers:
+        - name: {{.Values.appName}}-container
+          image: {{.Values.image}}:{{.Values.imageTag}}
+          imagePullPolicy: Always
+          env:
+            - name: PROFILE
+              value: {{.Values.profile}}
+            {{- with .Values.envs}}
+            {{- toYaml . | nindent 12}}
+            {{- end}}
+          {{- if .Values.configs}}
+          envFrom:
+            {{- range .Values.configs}}
+            - configMapRef:
+                name: {{ . | trimSuffix "-nosecret"}}-config
+            {{- if not (hasSuffix "-nosecret" .)}}
+            - secretRef:
+                name: {{ . }}-secret
+            {{- end}}
+            {{- end}}
+          {{- end}}
+          resources:
+            requests:
+              memory: {{.Values.resources.requests.memory}}
+              cpu: {{.Values.resources.requests.cpu}}
+            limits:
+              memory: {{.Values.resources.limits.memory}}
+              cpu: {{.Values.resources.limits.cpu}}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "/bin/sh", "-c", "sleep 5" ] # RollingUpdate 시, 조금 더 안정적으로
+          readinessProbe:
+            httpGet:
+              path: {{.Values.readinessProbe.httpGet.path}}
+              port: {{.Values.readinessProbe.httpGet.port}}
+            initialDelaySeconds: 30
+            periodSeconds: 1
+            successThreshold: 2
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: {{.Values.livenessProbe.httpGet.path}}
+              port: {{.Values.livenessProbe.httpGet.port}}
+            initialDelaySeconds: 30
+            periodSeconds: 1
+            failureThreshold: 5

@@ -1,0 +1,10 @@
+appName: feed
+image: kai1114/springkube-sns-feed-server
+imageTag: 0.0.2
+replicas: 1
+profile: dev
+envs:
+  - name: USER_SERVICE
+    value: http://user-server.sns.svc.cluster.local:8080
+configs:
+  - mysql

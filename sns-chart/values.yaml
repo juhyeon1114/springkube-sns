@@ -1,0 +1,22 @@
+appName: server
+image: ""
+imageTag: 0.0.1
+replicas: 1
+profile: dev
+envs: [ ]
+configs: [ ]
+readinessProbe:
+  httpGet:
+    path: /healthcheck/ready
+    port: 8080
+livenessProbe:
+  httpGet:
+    path: /healthcheck/live
+    port: 8080
+resources:
+  requests:
+    memory: "512Mi"
+    cpu: "500m"
+  limits:
+    memory: "1Gi"
+    cpu: "1000m"
